@@ -1,0 +1,11 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+{% extends "base.html" %} {% block title %}Domovská stránka Pečovatele{% endblock %}
+{% block content %}
+  <h1 align="center">Dobrovolníci</h1>
+  {% if session["user_role"] == "Pecovatel" %}
+    {% for dobrovolnik in seznam %}
+      <a class="content" id="{{dobrovolnik.id}}" onclick="myfunction('volunteer-about-{{dobrovolnik.id}}')" {% if dobrovolnik.overen == False %} style="color: orange" {%endif%}">{{dobrovolnik.id}}: {{dobrovolnik.jmeno}}</a>
+      <br></br>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

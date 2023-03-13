@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}Domovská stránka Pečovatele{% endblock %}
+{% block content %}
+  <h1 align="center">Dobrovolníci</h1>
+  {% if session["user_role"] == "Pecovatel" %}
+
+    {% for dobrovolnik in seznam %}
+        <a class="content" id="{{dobrovolnik.id}}" href="/volunteer-about-{{dobrovolnik.id}}">{{dobrovolnik.id}}: {{dobrovolnik.jmeno}}</a>
+        <br></br>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

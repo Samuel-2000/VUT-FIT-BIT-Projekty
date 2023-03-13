@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}Seznam zvířat{% endblock %}
+{% block content %}
+  <h1 align="center">Zvířata</h1>
+  <br></br>
+  
+  <div class = animals_list>
+    {% for animal in animals %}
+      {% if session["user_role"] == "Pecovatel" and user.id == animal.id_pecovatel or session["user_role"] != "Pecovatel" or animal.prirazeno == False %}
+        <div class = animal>
+          <img id="{{animal.id}}_img" src="../static/{{animal.img}}">
+            <a class="content" id="{{animal.id}}_name" href="/animal-{{animal.id}}">{{animal.jmeno}}{% if session["user_role"] == "Pecovatel" and animal.prirazeno == False %} (nepřiřazen){% endif %}</a>
+            <p class="druh">{{animal.druh}}</p>
+            <p class="historie">{{animal.historie}}</p>
+        </div>
+          <br/>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% if session["user_role"] == "Pecovatel" %}
+    <div class="pridej_zvire">
+      <a class="content" id="zvire" href="/animal-add">Přidat nové zvíře</a>
+    </div>
+    <br></br>
+    <br></br>
+  {% endif %}
+{% endblock %}

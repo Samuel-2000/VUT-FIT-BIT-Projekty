@@ -1,0 +1,21 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+{% extends "base.html" %} {% block title %}Adopce{% endblock %}
+{% block content %}
+{% if session["user_role"] == "Pecovatel" %}
+    {% for adopce in adoptions %}
+        {% for animal in animals %}
+          {% if adopce.id_zvire == animal.id %}
+            {% for volunteer in volunteers %}
+              {% if adopce.id_dobrovolnik == volunteer.id %}
+              {% if animal.id_pecovatel == user.id %}
+                <p class="content">Dobrovolnik {{volunteer.jmeno}} by chtěl adoptovat zvíře {{animal.jmeno}}</p>
+                <a class="content" id="{{adopce.id}}" onclick="approve_adoption('{{animal.jmeno}}','{{volunteer.jmeno}}','approve_adoption-{{adopce.id}}');">Schválit adopci!</a>
+                <br></br>
+              {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+    {% endfor %}
+  {% endif %} 
+{% endblock %}

@@ -1,0 +1,26 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+<h1 align="center">Admin</h1>
+<div class="vytvor_osobu">
+  <h2>Vytvořit pečovatele/veterináře</h2>
+  <a class="content" id="pecovatel" onclick="myfunction('caregiver-add')" style="color: white">Nový pečovatel</a>
+  <br>
+  <a class="content" id="veterinar" onclick="myfunction('veterinarian-add')" style="color: white">Novy veterinář</a>
+</div>
+<br>
+<div class="uprav_pecovatela">
+  <h2>Upravit pečovatele</h2>
+  {% for pecovatel in pecovatele %}
+  <a class="content" id="{{pecovatel.id}}"onclick="myfunction('caregiver-about-{{pecovatel.id}}')">{{pecovatel.id}}: {{pecovatel.jmeno}}</a>
+  <br>
+  {% endfor %}
+</div>
+<br>
+<div class="uprav_veterinara">
+  <h2>Upravit veterinaře</h2>
+  {% for veterinar in veterinari %}
+  <a class="content" id="{{veterinar.id}}" onclick="myfunction('veterinarian-about-{{veterinar.id}}')">{{veterinar.id}}: {{veterinar.jmeno}}</a>
+  <br>
+  {% endfor %}
+</div>
+
+  

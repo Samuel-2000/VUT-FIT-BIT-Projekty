@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}Domovská stránka Admina{% endblock %}
+{% block content %}
+  <h1 align="center">Admin</h1>
+  <div class="vytvor_osobu">
+    <h2>Vytvořit pečovatele/veterináře</h2>
+    <a class="content" id="pecovatel" href="/caregiver-add">Nový pečovatel</a>
+    <br>
+    <a class="content" id="veterinar" href="/veterinarian-add">Novy veterinář</a>
+  </div>
+  <br>
+  <div class="uprav_pecovatela">
+    <h2>Upravit pečovatele</h2>
+    {% for pecovatel in pecovatele %}
+      <a class="content" id="{{pecovatel.id}}" href="/caregiver-about-{{pecovatel.id}}">{{pecovatel.id}}: {{pecovatel.jmeno}}</a>
+      <br>
+    {% endfor %}
+  </div>
+  <br>
+  <div class="uprav_veterinara">
+    <h2>Upravit veterinaře</h2>
+    {% for veterinar in veterinari %}
+      <a class="content" id="{{veterinar.id}}" href="/veterinarian-about-{{veterinar.id}}">{{veterinar.id}}: {{veterinar.jmeno}}</a>
+      <br>
+    {% endfor %}
+  </div>
+{% endblock %}
+  

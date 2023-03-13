@@ -1,0 +1,12 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+<h1 align="center"><a id="animal" onclick="myfunction('animal-{{animal.id}}')">{{animal.jmeno}}</a></h1>
+  <div>
+    <img id="{{animal.id}}_img" src="../static/{{animal.img}}">
+    <br>
+    <p class="content">Plemeno: {{animal.druh}}</p>
+    <p class="content">Historie: {{animal.historie}}</p>
+    <p class="content">Datum narození: {{animal.datum_narozeni.strftime("%d. %b. %Y")}}</p>
+  </div>
+  <div>
+    <p>Záznam: {{record.text}}</p>
+  </div>

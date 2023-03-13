@@ -1,0 +1,15 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+<h1 align="center">Požadavky</h1>
+{% for pozadavek in seznam %}
+  {% if pozadavek.id_veterinar == vet.id and pozadavek.vyrizen == False %}
+    {% for animal in animals %}
+      {% if animal.id == pozadavek.id_zvire %}
+        <div>
+          <a class="content" id="{{pozadavek.id}}" onclick="myfunction('animal-{{pozadavek.id_zvire}}')">{{animal.jmeno}} ({{pozadavek.id_zvire}}): {{pozadavek.text}}</a>
+&emsp;
+          <a class="content" id="{{pozadavek.id}}" onclick="delete_request('{{animal.jmeno}}','request-delete-{{pozadavek.id}}')" style="color: rgb(215, 79, 0);">Smazat požadavek</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}

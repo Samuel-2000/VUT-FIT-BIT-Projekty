@@ -1,0 +1,5 @@
+		Hodnoty Simulace t4_w5_s5_k5_p5___AVG.txt:
+průměrně najeto: 12248 kilometrů
+průměrný čas plavby: 19d 17h
+Celkem zničeno tankerů: 7025 (0.0702%)
+Průměrná cena plavby: 1134077$

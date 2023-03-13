@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block title %}Přidání zvířete{% endblock %}
+{% block content %}
+  <form method="POST" enctype="multipart/form-data">
+    <h3 align="center">Přidej zvíře</h3>
+    <div class="form-group">
+      <label for="Name">Jméno *</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Name"
+        name="Name"
+        placeholder="Zadej méno"
+        value="{{ request.form['Name'] }}"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Breed">Plemeno/Druh *</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Breed"
+        name="Breed"
+        placeholder="Zadej jméno plemena"
+        value="{{ request.form['Breed'] }}"
+      />
+    </div>
+    <div class="form-group">
+      <label for="BirthDate">Datum narození *</label>
+      <input
+        type="date"
+        class="form-control"
+        id="BirthDate"
+        name="BirthDate"
+        placeholder="Zadej datum narození"
+        value="{{ request.form['BirthDate'] }}"
+        max="9999-12-31"
+      />
+    </div>
+    <div class="form-group">
+      <label for="History">Historie</label>
+      <input
+        type="text"
+        class="form-control"
+        id="History"
+        name="History"
+        placeholder="Zadej historii zvířete"
+        value="{{ request.form['History'] }}"
+      />
+    </div>
+    <div class="form-group">
+      <label for="img">Obrázek</label>
+      <input
+        type="file"
+        class="form-control"
+        id="img"
+        name="img"
+        placeholder="Zvol obrázek zvířete"
+        value="{{ request.form['img'] }}"
+      />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Přidat</button>
+  </form>
+{% endblock %}

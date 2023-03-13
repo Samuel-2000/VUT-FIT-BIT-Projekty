@@ -1,0 +1,77 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+<script>
+  $(function () {
+
+$('#animal_add_form').on('submit', function (e) {
+  e.preventDefault();
+  $('#container').hide(400);
+  $.ajax({
+    url: 'http://127.0.0.1:5000/ajax_animal-add',
+    type: 'POST',
+    data: {
+      Name : $('#Name').val(),
+      Breed : $('#Breed').val(),
+      BirthDate : $('#BirthDate').val(),
+      History : $('#History').val(),
+    },
+    
+    success: function(res) {
+      setTimeout(function(){
+      $('#container').html(res);
+      $('#container').show(400);
+      
+      }, 400);
+  }
+  });
+
+});
+
+});
+</script>
+<form id="animal_add_form" method="POST" enctype="multipart/form-data">
+  <h3 align="center">Přidej zvíře</h3>
+  <div class="form-group">
+    <label for="Name">Jméno *</label>
+    <input
+            type="text"
+            class="form-control"
+            id="Name"
+            name="Name"
+            placeholder="Zadej jméno"
+            value="{{ request.form['Name'] }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="Breed">Plemeno/Druh *</label>
+    <select id="Breed" name="Breed">
+      <option value="Pes">Pes</option>
+      <option value="Kočka">Kočka</option>
+  </select>
+  </div>
+  <div class="form-group">
+    <label for="BirthDate">Datum narození *</label>
+    <input
+            type="date"
+            class="form-control"
+            id="BirthDate"
+            name="BirthDate"
+            placeholder="Zadej datum narození"
+            value="{{ request.form['BirthDate'] }}"
+            max="9999-12-31"
+    />
+  </div>
+  <div class="form-group">
+    <label for="History">Historie</label>
+    <input
+            type="text"
+            class="form-control"
+            id="History"
+            name="History"
+            placeholder="Zadej historii zvířete"
+            value="{{ request.form['History'] }}"
+    />
+  </div>
+  
+  <br />
+  <button type="submit" class="btn btn-primary">Přidat</button>
+</form>

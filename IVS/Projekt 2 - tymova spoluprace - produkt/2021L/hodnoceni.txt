@@ -1,0 +1,4 @@
+xkucht11 100 (makefile, knihovna matematických operací + testy knihovny, profiling, refaktorizace)
+xaugus14 100 (testy GUI, základní mockup, rozšířený mockup)
+xhrabo17 100 (GUI, propojení GUI s knihovnou)
+xtroit00 100 (Instalátor, uživatelská dokumentace)

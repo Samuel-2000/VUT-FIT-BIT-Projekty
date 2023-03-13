@@ -1,0 +1,95 @@
+<!-- autor: Samuel Kuchta (xkucht11) -->
+<h1 align="center"><a id="animal" onclick="myfunction('animal-{{animal.id}}')">{{animal.jmeno}}</a></h1>
+  <div>
+    <img id="{{animal.id}}_img" src="../static/{{animal.img}}">
+    <br>
+    <p class="content">Plemeno: {{animal.druh}}</p>
+    <p class="content">Historie: {{animal.historie}}</p>
+    <p class="content">Datum narození: {{animal.datum_narozeni.strftime("%d. %b. %Y")}}</p>
+  </div>
+  <h1 align="center">Rozvrh venčení zvířete {{animal.jmeno}}</h1>
+  <script>
+    $(function () {
+  
+      $('#outing_register_form').on('submit', function (e) {
+        e.preventDefault();
+        $('#container').hide(400);
+        var jsonText_array = {};
+        for (var i=0; i<84; i++){
+          var cell = document.getElementById(i);
+          if (cell !== null){
+            var tmp = JSON.stringify(document.getElementById(i).checked);
+          }
+          else{
+            var tmp = 0;
+          }
+          
+          jsonText_array[i] = tmp;
+
+        }
+        
+
+        console.log(jsonText_array);
+        $.ajax({
+          url: 'http://127.0.0.1:5000/ajax_animal-outings-register-{{animal.id}}',
+          type: 'POST',
+          data: jsonText_array,
+          
+          success: function(res) {
+            setTimeout(function(){
+            $('#container').html(res);
+            $('#container').show(400);
+            
+            }, 400);
+        }
+        });
+  
+      });
+  
+    });
+  </script>
+  <form id="outing_register_form" method="POST" enctype="multipart/form-data">
+    <table class="tg">
+      <thead>
+        <tr>
+          <th class="tg-c3ow-date"></th>
+          {% for id in range(8, 20) %}
+            <th class="tg-c3ow-date">{{id}}-{{id+1}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for idx, day in table_build %}
+          <tr>
+            <td class="tg-c3ow-date">{{day}}</td>
+            {% for id in range(idx*12, 12+idx*12) %}
+              {% if is_registered[id] == min %}
+                <td class="tg-c3ow" {% if id == cellid %}style="border-color: blueviolet;border-width: 5px;"{% endif %}>
+                  <input type="checkbox" id="{{id}}" name="{{id}}" value="Yes">
+                </td>
+              {% elif is_registered[id] == max %}
+                <td class="tg-c3ow-non_registrable" {% if id == cellid %} style="border-color: blueviolet;border-width: 5px;" {% endif %}>X</td>
+              {% elif session["user_role"] == "Dobrovolnik" and is_registered[id] == usr_id_chr %}
+                <td class="tg-c3ow-my_registration" {% if id == cellid %}style="border-color: blueviolet;border-width: 5px;"{% endif %}>Registrováno
+                  <input type="checkbox" id="{{id}}" name="{{id}}" value="Open" checked>
+                </td>
+              {% else %}
+                <td class="tg-c3ow-taken"{% if id == cellid %}style="border-color: blueviolet;border-width: 5px;"{% endif %}>Obsazeno</td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+    {% if session["user_role"] == "Dobrovolnik" %}
+      <button type="submit" class="btn btn-primary">Registrovat</button>
+    {% endif %}
+  </form>
+  {% if session["user_role"] == "Pecovatel" %}
+    <div>
+      <a class="content" id="animal_outings_change" onclick="myfunction('animal-outings-change-{{animal.id}}')">Změnit rozvrh pro zvíře {{animal.jmeno}}</a>
+    </div>
+    <br></br>
+  {% endif %}
+  

@@ -1,0 +1,5 @@
+		Hodnoty Simulace t2_r80___AVG.txt:
+průměrně najeto: 9565 kilometrů
+průměrný čas plavby: 15d 14h
+Celkem zničeno tankerů: 3445 (0.0345%)
+Průměrná cena plavby: 840781$

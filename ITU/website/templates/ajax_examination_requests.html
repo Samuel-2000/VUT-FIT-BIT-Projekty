@@ -1,0 +1,74 @@
+<!-- autor: Samuel Kuchta (xkucht11) -->
+<script>
+  $(function () {
+
+    $('#examination_requests_form').on('submit', function (e) {
+      e.preventDefault();
+      $('#container').hide(400);
+      $.ajax({
+        url: 'http://127.0.0.1:5000/ajax_examination-requests-{{animal.id}}',
+        type: 'POST',
+        data: {
+          vet_id : $('#vet_id').val(),
+          text : $('#text').val(),
+        },
+        
+        success: function(res) {
+          setTimeout(function(){
+          $('#container').html(res);
+          $('#container').show(400);
+          
+          }, 400);
+      }
+      });
+
+    });
+
+  });
+</script>
+<h1 align="center"><a id="animal" onclick="myfunction('animal-{{animal.id}}')">{{animal.jmeno}}</a></h1>
+  <div>
+    <img id="{{animal.id}}_img" src="../static/{{animal.img}}">
+    <br>
+    <p class="content">Plemeno: {{animal.druh}}</p>
+    <p class="content">Historie: {{animal.historie}}</p>
+    <p class="content">Datum narození: {{animal.datum_narozeni.strftime("%d. %b. %Y")}}</p>
+  </div>
+  {% if session["user_role"] == "Pecovatel" %}
+    <form id="examination_requests_form" method="POST" enctype="multipart/form-data">
+      <h3 align="center">Přidej požadavek pro vyšetření</h3>
+      <div class="form-group">
+        <label for="vet_id">Jméno veterináře</label>
+        <select id="vet_id" name="vet_id">
+          {% for vet in veterinarians %}
+            <option value="{{vet.id}}">{{vet.id}}: {{vet.jmeno}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="text">Popis požadavku</label>
+        <input
+          type="text"
+          class="form-control"
+          id="text"
+          name="text"
+          placeholder="Zadej popis"
+          value="{{ request.form['text'] }}"
+        />
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Vložit</button>
+    </form>
+    <br/>
+  {% endif %}
+  {% for pozadavek in seznam %}
+    {% if pozadavek.vyrizen == True %}
+      <div>
+        <p class="content" style="color: rgb(99, 161, 99)">{{pozadavek.id}}: {{pozadavek.text}}</p>
+      </div>
+    {% else %}
+      <div>
+        <p class="content" style="color: rgb(255, 164, 108)">{{pozadavek.id}}: {{pozadavek.text}}</p>
+      </div>
+    {% endif %}
+  {% endfor %}

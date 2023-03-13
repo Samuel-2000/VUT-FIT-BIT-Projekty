@@ -1,0 +1,85 @@
+<!-- autor: Samuel Kuchta (xkucht11) -->
+<script>
+  $(function () {
+
+    $('#volunteer_about_form').on('submit', function (e) {
+      e.preventDefault();
+      $('#container').hide(400);
+      $.ajax({
+        url: 'http://127.0.0.1:5000/ajax_volunteer-about-{{volunteer.id}}',
+        type: 'POST',
+        data: {
+          overen : $('#overen').val(),
+        },
+        
+        success: function(res) {
+          setTimeout(function(){
+          $('#container').html(res);
+          $('#container').show(400);
+          
+          }, 400);
+      }
+      });
+
+    });
+
+  });
+</script>
+<p class="content">jméno: {{volunteer.jmeno}}</p>
+  <p class="content">email: {{volunteer.email}}</p>
+  {% if volunteer.overen == True %}
+    <p class="content">ověřen: Ano</p>
+  {% else %}
+    <p class="content">ověřen: Ne</p>
+  {% endif %}
+  <form id="volunteer_about_form" method="POST" enctype="multipart/form-data">
+    <div class="form-group">  
+      <label for="overen">ověření:</label>
+      <select id="overen" name="overen">
+          <option value="True" {% if volunteer.overen == True %} selected {% endif %}>ověřen</option>
+          <option value="False" {% if volunteer.overen == False %} selected {% endif %}>neověřen</option>
+      </select>
+      <button type="submit" class="btn btn-primary">Uložit</button>
+    </div>
+  </form>
+
+  <br>
+  <table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-c3ow-date"></th>
+        {% for id in range(8, 20) %}
+          <th class="tg-c3ow-date">{{id}}-{{id+1}}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for idx, day in table_build %}
+        <tr>
+          <td class="tg-c3ow-date">{{day}}</td>
+          {% for id in range(idx*12, 12+idx*12) %}
+            {% if is_registered[id] == min %}
+              <td class="tg-c3ow" id="{{id}}" {% if id == cellid %}style="border-color: blueviolet;border-width: 5px;"{% endif %}>X</td>
+            {% else %}
+              {% for animal in animals %}
+                {% if animal.id == is_registered[id] %}
+                  <td class="tg-c3ow-taken" id="{{id}}" {% if id == cellid %}style="border-color: blueviolet;border-width: 5px;"{% endif %}>{{animal.jmeno}}</td>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <br></br>
+  <h3>Histórie věnčení:</h3>
+  {% for borrowing in borrowings %}
+    {% for animal in animals %}
+      {% if borrowing.id_zvire == animal.id %} 
+      {% if borrowing.id_dobrovolnik == volunteer.id %} 
+      <p class="content">{{borrowing.datum}} : {{animal.jmeno}}</p>
+      {% endif %}  
+      {% endif %}  
+    {% endfor %} 
+  {% endfor %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block title %}{{animal.jmeno}}{% endblock %}
+{% block content %}
+  <h1 align="center"><a id="animal" href="/animal-{{animal.id}}">{{animal.jmeno}}</a></h1>
+  <div>
+    <img id="{{animal.id}}_img" src="../static/{{animal.img}}">
+    <br>
+    <p class="content">Plemeno: {{animal.druh}}</p>
+    <p class="content">Historie: {{animal.historie}}</p>
+    <p class="content">Datum narození: {{date}}</p>
+  </div>
+{% endblock %}
+
+  

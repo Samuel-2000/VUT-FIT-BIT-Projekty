@@ -1,0 +1,93 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
+  <title>Projekt IIS</title>
+  <style type="text/css">
+    table { border-collapse: collapse; }
+    td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    dt { font-weight: bold; margin-top: 0.5em; }
+  </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Zvířecí útulek</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+  <dt>Autoři</dt>
+  <dd>Samuel Kuchta <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+    <a href="mailto:xkucht11@stud.fit.vutbr.cz">xkucht11@stud.fit.vutbr.cz</a> -
+    databáze
+    autorizace
+    admin a dobrovolník a jejich funkce
+  </dd>
+  <dd>Jakub Kováčik <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+    <a href="mailto:xkovac58@stud.fit.vutbr.cz">xkovac58@stud.fit.vutbr.cz</a> -
+    rozvrh venčení
+    pečovatel a jeho funkce
+  </dd>
+  <dd>Adam Dalibor Jurčík <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+    <a href="mailto:xjurci08@stud.fit.vutbr.cz">xjurci08@stud.fit.vutbr.cz</a> -
+    seznam zvířat (přidání, odstranění)
+    veterinář a jeho funkce
+  </dd>
+  <dt>URL aplikace</dt>
+  <dd><a href="https://utulek-happy-paw.onrender.com/">https://utulek-happy-paw.onrender.com/</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+  <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+  <tr><td>admin@admin.com</td><td>admin</td><td>Administrátor</td></tr>
+  <tr><td>pecovatel@gmail.com</td><td>aaaaaaaaa</td><td>Pečovatel</td></tr>
+  <tr><td>pecovatel2@gmail.com</td><td>aaaaaaaaa</td><td>Pečovatel</td></tr>
+  <tr><td>veterinar@gmail.com</td><td>aaaaaaaaa</td><td>Veterinář</td></tr>
+  <tr><td>veterinar2@gmail.com</td><td>aaaaaaaaa</td><td>Veterinář</td></tr>
+  <tr><td>dobrovolnik@gmail.com</td><td>aaaaaaaaa</td><td>Dobrovolník</td></tr>
+  <tr><td>dobrovolnik2@gmail.com</td><td>aaaaaaaaa</td><td>Dobrovolník</td></tr>
+</table>
+
+<h3>Video</h3>
+
+<a href="https://mega.nz/file/XvJEyIDT#ihWeoQb1cPolAELOHdIkExfLx7Kk3MmKKlTAnqk59e8">odkaz na video (Mega.nz)</a>
+
+<p>Přiložte odkaz na komentované video demostrující použití informačního systému. Zaměřte se na případy užití definované zadáním (např. registrace uživatele, správa uživatelů a činnosti jednotlivých rolí). Video nahrajte například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p>
+
+<h2>Implementace</h2>
+<p>VIEW: v adresáři website/templates jsou html soubory.</p>
+<p>CONTROLLER: v adresaři website je soubor auth.py který slouží na autorizaci, registraci a správu uživatelů
+               a vo views.py jsou funkce které vykonávají jednotlivé use-casy (funkcionalita je popsána názvy jednotlivých funkcii).</p>
+<p>MODEL: v adresáři website je soubor models.py obsahujíci objekty popisujúci tabulky v PostgreeSQL.</p>
+
+<h3>Databáze</h3>
+
+<img src="ER.png">
+
+<h2>Instalace</h2>
+
+Stručně popište:
+<ul>
+  <li>Na hosting servru používame Render.com a na hosting PostgreeSQL databáze Heroku.com. </li>
+  <li>Softwarové požadavky</li>
+  <ul>
+  <li>Flask-SQLAlchemy==2.5.1</li>
+  <li>SQLAlchemy==1.3.24</li>
+  <li>Flask-Login==0.6.2</li>
+  <li>cryptography</li>
+  <li>psycopg2</li>
+  <li>apscheduler</li>
+  </ul>
+  <li>spuštění: python3 main.py</li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p>Pri nejakej chybe, si skúste premazať cookies.</p>
+
+</body>
+</html>

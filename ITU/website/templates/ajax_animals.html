@@ -1,0 +1,79 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+ <h1 align="center">Zvířata</h1>
+  <br></br>
+  <label for="Breed">Plemeno/Druh</label>
+    <select id="Breed" name="Breed" onchange="animal_filter(Breed.value,Name.value)">
+      <option value="Všechny" selected>Všechny</option>
+      <option value="Pes">Pes</option>
+      <option value="Kočka">Kočka</option>
+  </select>
+  <br></br>
+  <script>
+    function animal_filter(breed, name){
+    if (!breed){
+        breed = "Všechny";
+    }
+    if (!name){
+        name = "Všechny";
+    }
+    $('#animals_list').hide(400);
+    $.ajax({
+    url: "http://127.0.0.1:5000/ajax_animal_filter-" + breed + "-" + name,
+    type: 'GET',
+    success: function(res) {
+        setTimeout(function(){
+        $('#animals_list').html(res);
+        $('#animals_list').show(400);
+        
+        }, 400);
+    }
+    });
+}
+    $(function () {
+  
+      $('#name_filter_form').on('submit', function (e) {
+        e.preventDefault();
+
+        
+        animal_filter(Breed.value,Name.value);
+        
+        
+  
+      });
+  
+    });
+  </script>
+  <form id="name_filter_form" method="POST" enctype="multipart/form-data">
+    <label for="Name">Jméno</label>
+    <input
+            type="text"
+            id="Name"
+            name="Name"
+            placeholder="Zadej jméno"
+            style="width: 200px;"
+            
+    />
+    <button type="submit" class="btn btn-primary">Hledat</button>
+  </form>
+  <br></br>
+  <div class = animals_list id = "animals_list">
+    {% for animal in animals %}
+      {% if session["user_role"] == "Pecovatel" and user.id == animal.id_pecovatel or session["user_role"] != "Pecovatel" or animal.prirazeno == False %}
+        <div class = animal>
+          <img id="{{animal.id}}_img" src="../static/{{animal.img}}" onclick="myfunction('animal-{{animal.id}}')" class="hover_image">
+            <a class="content" id="{{animal.id}}_name" onclick="myfunction('animal-{{animal.id}}')">{{animal.jmeno}}{% if session["user_role"] == "Pecovatel" and animal.prirazeno == False %} (nepřiřazen){% endif %}</a>
+            <p class="druh">{{animal.druh}}</p>
+            <p class="historie">{{animal.historie}}</p>
+        </div>
+          <br/>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% if session["user_role"] == "Pecovatel" %}
+    <div class="pridej_zvire">
+      <a class="content" id="zvire" onclick="myfunction('animal-add')">Přidat nové zvíře</a>
+    </div>
+    <br></br>
+    <br></br>
+    {% endif %}

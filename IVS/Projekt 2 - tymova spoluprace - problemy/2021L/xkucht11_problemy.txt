@@ -1,0 +1,6 @@
+týmové problémy:
+jediný vážnejší týmový problém podľa mna bol dohodnúť sa na implementácii n-tej odmocniny.
+
+významné individuálné problémy boli:
+dokumentácia s využitím doxypypy (nepodarilo sa vyriešit)
+Nastavenie závislostí na PyQt knižnicu v inštalátore (podarilo sa vyriešit)

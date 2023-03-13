@@ -1,0 +1,24 @@
+stanovené termíny:
+13.03. odevzdaný plán, vytvořený repozitář, vytvořeny kanály na discordu pro jednotlivé části projektu.
+20.03. makefile, počátoční testy pro TDD, rozhraní + implementace knihovny matematických operací
+27.03. GUI + jeho propojení s matematickou knihovnou
+03.04. profiling, optimalizace, dokumentace(uživatelská)
+10.04. finální testy GUI a mat. operací, instalátor(Ubuntu)
+17.04. sepsání uživatelské dokumentace, ladění produktu, konečné testování a kontrola, zkouška instalace, zhodnocení práce a porovnání plánu se skutečností, odevzdání.
+20.04. vytvoření prezentace
+
+podle potřeby se mohou jednotlivé terminy zkratit/prodloužit, a mohou být ještě nějaké terminy přidány
+přidělení úkolů na projektu jednotlivým řešitelům:
+Kuchta Samuel (vedoucí) xkucht11: makefile, knihovna matematických operací + počiatočné testy pre TDD, propojení GUI s knihovnou, profiling, optimalizace, plánování, dohled nad ostatními částmi projektu a nad prací ostatních členů týmu, pomoc členovi týmu v případě potřeby, vytvoření prezentace.
+Augustín Dominik xaugus14: finálne testy GUI a mat. operací
+Hrabovský Jiří xhrabo17: GUI
+Troitckii Georgii xtroit00: instalátor(Ubuntu)+dokumentace(uživatelská)
+společně: mockup
+
+zvolené komunikační kanály pro komunikaci v týmu a stanovená pravidla pro komunikaci:
+Discord: Každou neděli voice call, v případě potřeby, i častěji.
+pravidla: používání konkretních kanálů na konkrétní záležitosti.
+Členové týmu se budou v případě potřeby scházet přímo na fakultě, aby bylo možné lépe prodiskutovat detaily.
+
+Repozitář je hostovaný privátně (na účtu vedoucího projektu) na adrese https://github.com/Samuel-2000/IVS_2022_Proj2.
+Přístup do repozitáře je vyučujícím a cvičícím umožněn skrze účet ivs.kontrola@gmail.com kterému bylo přes pozvánku uděleno oprávnění do repozitáře neomezeně nahlížet.

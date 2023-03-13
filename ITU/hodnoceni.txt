@@ -1,0 +1,17 @@
+Text zprávy:
+Hodnocení projektu, ITU 2022 Z
+recenzent/ka: Víťa Beran, členové komise obhajoby: Daniel Bambušek, Víťa Beran
+
+Prezentační kvalita projektu: 4b/6b
+Zpráva je po jazykové i formální stránce dobrá. Obsahově je spíše stručná. Zdrojové kódy obsahují autorství, nikoliv již komentáře. Text zprávy neobsahuje informace o implementaci GUIm dílčích prvků, využití AJAXu apod.
+
+Zadání: 6b/10b
+Průzkum vede ke sběru funkčních potřeb uživatele. Chybí ovšem analýza uživatele a kroků procesů dílčích uživ. potřeb, aby bylo možné relevantně navrhnout GUI (informační strukturu, procesy, interakce atd.). Nárvh řešení je návrhem IS a ne návrhem GUI a jeho realizace.
+
+Aplikace: 25b/33b
+Implementace využívá moderní framework Flask. Technologie AJAX je využita k manipulaci s daty na pozadí interakce, ovšem dnes ne již správným způsobem - načítá se celý kus webové stránky, nesdílí se pouze data. Logika aplikace a data jsou odděleny od GUI. Architektura a realizace celé aplikace ovšem vede k tomu, že se řešení nechová jako aplikace, ale jako IS (přepínání webových stránek a formuláře). Celý projekt je zaměřen spíše na IS než na GUI - a to jak z pohledu návrhu GUI, tak z pohledu jeho technického řešení. Výsledné řešení je co do funkcí propracované, kompletní a funkční a spíše většího rozsahu. Co se týče návrhu a realizace GUI samotného, jedná se řešení zastaralé a neefektivní.
+
+Testování: 3b/6b
+Testování bylo provedeno na nemalé skupině uživatelů. Test reflektuje spíše funkce než GUI. S výsledkem testu se nelze stotožnit. Nejsou známy detaily průběhu testu, ale kvalita GUI řešení neodpovídá reportovaným výsledkům testu.
+
+Celkové hodnocení: 38b/55b

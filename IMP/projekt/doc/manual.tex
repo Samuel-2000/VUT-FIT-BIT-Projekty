@@ -1,0 +1,123 @@
+\documentclass[12pt,a4paper,final]{article}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage[bookmarksopen, colorlinks, plainpages=false, urlcolor=blue, unicode]{hyperref}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{capt-of}
+\usepackage[Q=yes]{examplep}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage[text={17.cm, 25cm}, ignorefoot]{geometry}
+\usepackage{ragged2e}
+\justifying
+
+\begin{document}
+
+\input{title.tex}
+
+% Obsah
+\pagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{1}
+\tableofcontents
+
+
+\newpage
+\pagestyle{plain}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section{Zadání}
+Zadáním projektu bylo vytvořit aplikaci demonstrující možnosti modulu Watchdog Timer (WDOG) dostupného na mikrokontroléru Kinetis K60 na platformě FITkit 3.
+
+Předpoklady projektu:
+\begin{itemize}
+    \item Předpokládejte zdroj hodin LPO (Low-Power Oscillator).
+    \item V rámci jednoduché vestavné aplikace demonstrujte včasnou obsluhu WDOG v periodickém a okénkovém (windowed) režimu, každou s různými velikostmi periody/okna.
+    \item Aplikace musí interagovat (např. pomocí tlačítek, LED, piezzo bzučáku či terminálu) s uživatelem; přinejmenším musí (rozlišitelným způsobem) signalizovat pomocí LED a/nebo piezzo bzučáku: zahájení vestavné aplikace po resetu, zahájení iterace cyklu v aplikaci, zahájení obsluhy WDOG.
+    \item Pomocí aplikace musí být možno demonstrovat dopad nevčasných obsluh WDOG na její chod a provést sběr statistik o počtech a příčinách resetu mikrokontroléru.
+\end{itemize}
+
+\section{Watchdog}
+
+Watchdog je časovač, který je používán ke kontrole a detekci zacyklení aplikací. Při běžném provozu je watchdog pravidelně resetován běžící aplikací, což zabraňuje vypršení jeho časového limitu. Pokud běžící aplikace nedokáže kvůli nějaké chybě resetovat watchdog, časovač uplyne a systém je zaveden resetem do původního stavu.
+
+\subsection{Registry modulu WDOG (16-bit)}
+\begin{itemize}
+    \item \verb|WDOG_STCTRLH| a \verb|WDOG_STCTRLL|: slouží ke konfiguraci.
+    \begin{itemize}
+        \item Zapnutí Watchdogu
+        \item Zapnutí/vypnutí okénkového režimu
+        \item Nastavení zdroje hodin (LPO)
+        \item Povolení v režimu CPU Debug.
+    \end{itemize}
+    \item \verb|WDOG_TOVALH| a \verb|WDOG_TOVALL|: Nastavení velikosti horní periody časovače.
+    \item \verb|WDOG_WINH| a \verb|WDOG_WINL|: Nastavení velikosti spodní periody časovače. (Jen v okénkovém režimu).
+    \item \verb|WDOG_REFRESH|: zápisem 2 specifických hodnot se resetuje horní perioda časovače, co oddálí reset programu watchdogem.
+    \item \verb|WDOG_UNLOCK|: zápisem 2 specifických hodnot povolí změny hodnot určitých registrů. 
+    \item \verb|WDOG_TMROUTH| a \verb|WDOG_TMROUTL|: obsahují uplynulý čas od posledního obnovení časovače.
+    \item \verb|WDOG_RSTCNT|: počet resetů MCU.
+    \item \verb|WDOG_PRESC|: Dělička vstupních hodin, určená pro zpomalení taktu.
+\end{itemize}
+
+\subsection{Periodický režim}
+Využíván pro kontrolu správného běhu programu (jestli nedošlo k zacyklení). Jestli po dobu periody (zapsané v registrech \verb|WDOG_TOVALH| a \verb|WDOG_TOVALL|) nebude WDOG obnoven, systém bude resetován.
+
+\subsection{Okénkový režim}
+Využíván pro kontrolu správnosti taktu hodin (věkem se může takt hodin změnit, co by mohlo ohrozit některé aplikace). Horní perioda se nastavuje stejně jako v periodickém režimu. Spodní perioda se nastavuje v registrech \verb|WDOG_WINH| a \verb|WDOG_WINL|. Pokud nastane obnovení watchdogu mimo tento interval, systém bude resetován.
+
+
+\section{Implementace}
+
+\begin{itemize}
+    \item Jazyk: C.
+    \item IDE: Kinetis Desgin Studio.
+    \item Zdrojový soubor: \verb|main.c|
+\end{itemize}
+
+\subsection{Uživatelské rozhraní}
+Program komunikuje s uživatelem prostřednictvím bzučáku, LED, a výpisů do terminálu.
+
+\subsection{Tok programu}
+\begin{itemize}
+    \item Inicializuje se MCU, Porty a UART.
+    \item Při každém resetu nastane krátke zapípání.
+    \item Inicializuje se WDOG, vybere se režim podle počtu resetů. Jestli je počet resetů sudý, tak je vybrán periodický režim, v opačném případě je vybrán okénkový režim.
+    \item Při prvním startu (Power-On Reset) zahraje znělku Windows XP Start-up.
+    \item Začne hrát skladbu "Pro Elišku"  od Beethovena.
+    \item Periodický režim:
+    \begin{itemize}
+        \item Po prvním dohrání skladby se automaticky obnoví WDOG
+        \item Při druhém přehrání skladby nastane zacyklení programu (LED Signalizace)
+        \item Po uplynutí časovače je prográm resetován.
+    \end{itemize}
+    \item Okénkový režim:
+    \begin{itemize}
+        \item Po prvním dohrání skladby má možnost uživatel obnovit časovač stlačením tlačítka SW6. Jestli tak neučiní, vyprší časovač, a program je resetován.
+        \item Nastane brzký automatický refresh, který simuluje nežádoucí zrychlení taktu hodin MCU. (Hodnota bude menší než je nastaveno v Registrech dolní periody, čímž dojde k resetu.)
+    \end{itemize} 
+\end{itemize}
+
+\subsection{Výpis statistik}
+Do terminálu jsou zasílány informace o pořadí resetu, jeho příčině, a o právě používaném režimu.
+
+\section{Použití}
+Aplikaci je vhodné spustit s terminálem (např. PuTTY), který bude sloužit k výpisu informací o stavu aplikace.
+
+\subsection{Nastavení Sériového rozhraní}
+Správce zařízení a Putty:
+\begin{itemize}
+    \item Speed (baud): 115200
+    \item Data bits: 8
+    \item Stop bits: 1
+    \item Parity: None
+    \item Flow Control: None
+\end{itemize} 
+
+\section{Shrnutí}
+Aplikace Používá modul Watchdog pro resetování programu při jeho nesprávném fungování.
+
+\end{document}

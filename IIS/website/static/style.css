@@ -1,0 +1,31 @@
+html {min-height: 100%;min-width: 800px}
+
+body {min-width: 800px;background-color: #001A27; background-image: url(background.jpg); background-repeat: no-repeat;
+    background-attachment: fixed;  background-position: center}
+    
+h1 {color: white}
+h2 {font-size: 30px; color: white}
+h3 {color: white}
+p {font-size: 25px; color: white}
+a {color: white; font-weight: bold;text-decoration: underline}
+label {color: white}
+img {object-fit: cover; width: 200px; height: 200px}
+div.animals_list {min-width: 800px}
+div.animal {width: 100%; height: 200px}
+p.historie {font-size: 20px; padding: 10px; height: 100px; overflow: hidden; display: flex}
+div.animal a {width: 100%; padding: 10px; font-size: 30px}
+div.animal img {float: left; padding: 10px}
+div.pridej_zvire {font-size: 25px; text-align: center}
+div.navbar {overflow: hidden; background-color: #343a40; position: fixed; top: 0; width: 100%}
+div.alert {top: 75px; width: 100%}
+p.druh {height: 20px;font-size: 20px; padding: 10px; display: flex}
+.tg {color: white; border-collapse: collapse; border-spacing: 0}
+.tg td {color: white; border-color: white; border-style: solid; border-width: 1px; font-family: Arial, sans-serif; font-size: 14px;
+  overflow: hidden; padding: 10px 20px; word-break: normal}
+.tg th {color: white; border-color: white; border-style: solid; border-width: 1px; font-family: Arial, sans-serif; font-size: 14px;
+  font-weight: normal; overflow: hidden; padding: 10px 20px; word-break: normal}
+.tg .tg-c3ow {background-color: darkblue; text-align: center; vertical-align: top}
+.tg .tg-c3ow-taken {background-color: darkgoldenrod; text-align: center; vertical-align: top}
+.tg .tg-c3ow-non_registrable {background-color: rgb(180, 0, 0); text-align: center; vertical-align: top}
+.tg .tg-c3ow-my_registration {background-color: green; text-align: center; vertical-align: top}
+.tg .tg-c3ow-date {background-color: black; text-align: center; vertical-align: top}

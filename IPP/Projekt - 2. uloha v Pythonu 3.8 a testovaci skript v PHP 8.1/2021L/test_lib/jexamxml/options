@@ -1,0 +1,14 @@
+# Validation options
+DoNamespaces = 1 # Name spaces Off - 0 On - 1
+DoSchema = 1 # Schema checking Off - 0 On - 1
+SchemaFullChecking = 0 # Full schema checking Off - 0 On - 1
+ContinueAfterFatalError = 0 # Continue after fatal error Off - 0 On - 1
+SchemaValidation = 0 # Schema validation Auto - 0 Never - 1 Always - 2
+CompareLevel = 3 #  Comparison options. Fast - 0 Normal - 1 Slow - 2 Full - 3
+CaseSensitive = 1 # Off - 0  On - 1 
+IgnoreWhitespaces = 1 # Off - 0 On - 1
+Encoding = UTF-8 # XML encoding (default UTF-8)
+XMLVersion = 1.0 # XML version (default 1.0)
+InsertComments = 1 # Insert xml comments to highlight differences Off - 0 On - 1 
+IgnoreAttributes  = 0 # Ignore attributes Off - 0 On - 1 
+IgnoreValues = 0 # Ignore content of the XML elements Off - 0 On - 1

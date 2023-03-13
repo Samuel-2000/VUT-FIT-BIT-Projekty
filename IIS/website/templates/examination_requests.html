@@ -1,0 +1,41 @@
+{% extends "base_animal.html" %} {% block title %}Požadavek pro vyšetření{% endblock %}
+{% block animal_content %}
+  {% if session["user_role"] == "Pecovatel" %}
+    <form method="POST" enctype="multipart/form-data">
+      <h3 align="center">Přidej požadavek pro vyšetření</h3>
+      <div class="form-group">
+        <label for="vet_id">Jméno veterináře</label>
+        <select id="vet_id" name="vet_id">
+          {% for vet in veterinarians %}
+            <option value="{{vet.id}}">{{vet.id}}: {{vet.jmeno}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="text">Popis požadavku</label>
+        <input
+          type="text"
+          class="form-control"
+          id="text"
+          name="text"
+          placeholder="Zadej popis"
+          value="{{ request.form['text'] }}"
+        />
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Vložit</button>
+    </form>
+    <br/>
+  {% endif %}
+  {% for pozadavek in seznam %}
+    {% if pozadavek.vyrizen == True %}
+      <div>
+        <p class="content" style="color: rgb(99, 161, 99)">{{pozadavek.id}}: {{pozadavek.text}}</p>
+      </div>
+    {% else %}
+      <div>
+        <p class="content" style="color: rgb(255, 164, 108)">{{pozadavek.id}}: {{pozadavek.text}}</p>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

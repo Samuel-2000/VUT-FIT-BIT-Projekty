@@ -1,0 +1,83 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+{% extends "base.html" %} {% block title %}Profil veterináře{% endblock %}
+{% block content %}
+{% if session["user_role"] == "Admin" %}
+<p class="content">{{veterinarian.email}}</p>
+<p class="content">{{veterinarian.jmeno}}</p>
+<a class="content" id="veterinarian_delete" onclick="delete_veterinarian('{{veterinarian.jmeno}}','veterinarian-delete-{{veterinarian.id}}')" onclick="return confirm('Chcete odebrat veterináře s jménem {{veterinarian.jmeno}}?')">Odebrat Veterináře</a>
+<script>
+  $(function () {
+
+    $('#veterinarian_edit_form').on('submit', function (e) {
+      e.preventDefault();
+      $('#container').hide(400);
+      $.ajax({
+        url: 'http://127.0.0.1:5000/ajax_veterinarian-about-{{veterinarian.id}}',
+        type: 'POST',
+        data: {
+          email : $('#email').val(),
+          firstName : $('#firstName').val(),
+          password1 : $('#password1').val(),
+          password2 : $('#password2').val(),
+        },
+        
+        success: function(res) {
+          setTimeout(function(){
+          $('#container').html(res);
+          $('#container').show(400);
+          
+          }, 400);
+      }
+      });
+
+    });
+
+  });
+</script>
+<form id="veterinarian_edit_form" method="POST" enctype="multipart/form-data">
+  <h3 align="center">Změna údajů veterináře {{veterinarian.jmeno}}</h3>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      name="email"
+      placeholder="Zadej email"
+    />
+  </div>
+  <div class="form-group">
+    <label for="firstName">Křestní jméno</label>
+    <input
+      type="text"
+      class="form-control"
+      id="firstName"
+      name="firstName"
+      placeholder="Zadej křestní jméno"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password1">Heslo</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password1"
+      name="password1"
+      placeholder="Zadej heslo"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password2">Potvrzení hesla</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password2"
+      name="password2"
+      placeholder="Zopakuj heslo"
+    />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Změnit</button>
+</form>
+{% endif %}
+{% endblock %}

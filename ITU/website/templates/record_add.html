@@ -1,0 +1,95 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+{% extends "base.html" %} {% block title %}Přidání záznamu{% endblock %}
+{% block content %}
+<script>
+  $(function () {
+
+    $('#record_add_form').on('submit', function (e) {
+      e.preventDefault();
+      $('#container').hide(400);
+      $.ajax({
+        url: 'http://127.0.0.1:5000/ajax_record-add-{{animal.id}}',
+        type: 'POST',
+        data: {
+          req_id : $('#req_id').val(),
+          druh_vysetreni : $('#druh_vysetreni').val(),
+          text : $('#text').val(),
+          datum : $('#datum').val(),
+        },
+        
+        success: function(res) {
+          setTimeout(function(){
+          $('#container').html(res);
+          $('#container').show(400);
+          
+          }, 400);
+      }
+      });
+
+    });
+
+  });
+</script>
+<h1 align="center"><a id="animal" onclick="myfunction('animal-{{animal.id}}')">{{animal.jmeno}}</a></h1>
+  <div>
+    <img id="{{animal.id}}_img" src="../static/{{animal.img}}">
+    <br>
+    <p class="content">Plemeno: {{animal.druh}}</p>
+    <p class="content">Historie: {{animal.historie}}</p>
+    <p class="content">Datum narození: {{animal.datum_narozeni.strftime("%d. %b. %Y")}}</p>
+  </div>
+  <form id="record_add_form" method="POST" enctype="multipart/form-data">
+    <h3 align="center">Přidej záznam</h3>
+    <div class="form-group">
+      <label for="req_id">Požadavek</label>
+      <select id="req_id" name="req_id">
+        <option value="Blank">Žádný</option>
+        {% for req in requests %}
+          {% if req.vyrizen == False %}
+            <option value="{{req.id}}">{{req.id}}: {{req.text}}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="druh_vysetreni">Druh vyšetření</label>
+      <input
+        type="text"
+        class="form-control"
+        id="druh_vysetreni"
+        name="druh_vysetreni"
+        placeholder="Zadej druh vyšetření"
+        value="{{ request.form['druh_vysetreni'] }}"
+      />
+    </div>
+    <div class="form-group">
+      <label for="datum">Datum</label>
+      <input
+        type="date"
+        class="form-control"
+        id="datum"
+        name="datum"
+        placeholder="Zadej datum"
+        value="{{ request.form['datum'] }}"
+        max="9999-12-31"
+      />
+    </div>
+    <div class="form-group">
+      <label for="text">Popis</label>
+      <input
+        type="text"
+        class="form-control"
+        id="text"
+        name="text"
+        placeholder="Zadej popis"
+        value="{{ request.form['text'] }}"
+      />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Vložit</button>
+  </form>
+  {% if is_post == False %}
+    <script type="text/javascript"> document.getElementById('datum').valueAsDate = new Date(); </script>
+  {% endif %}
+{% endblock %}
+

@@ -1,0 +1,60 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+{% extends "base.html" %}
+{% block content %}
+<h1 align="center"><p id="animal" style="font-size: 35px;">{{animal.jmeno}}</p></h1>
+  <div>
+    <img id="{{animal.id}}_img" src="../static/{{animal.img}}">
+    <br>
+    <p class="content">Plemeno: {{animal.druh}}</p>
+    <p class="content">Historie: {{animal.historie}}</p>
+    <p class="content">Datum narození: {{animal.datum_narozeni.strftime("%d. %b. %Y")}}</p>
+  </div>
+  {% if session["user_role"] == "Pecovatel" and animal.prirazeno == False %}
+    <br>
+    <div>
+      <a class="content" id="new_record" onclick="take_animal('{{animal.jmeno}}','animal-take-{{animal.id}}-{{user.id}}')" style="color: green;"  onclick="return confirm('Chcete si přivlastnint zvíře s jménem {{animal.jmeno}}?')">Přivlastnit</a>
+    </div>
+  {% endif %}
+  {% if session["user_role"] == "Pecovatel" or (session["user_role"] == "Dobrovolnik" and user.overen == True)%}
+    <div>
+      <a class="content" id="animal_outing" onclick="myfunction('animal-outings-register-{{animal.id}}')">Rozvrh venčení</a>
+    </div>
+  {% endif %}
+  {% if session["user_role"] == "Pecovatel" or session["user_role"] == "Veterinar" %}
+    <div>
+      <a class="content" id="animal_examination_request" onclick="myfunction('examination-requests-{{animal.id}}')">Požadavky na vyšetření</a>
+    </div>
+  {% endif %}
+  {% if session["user_role"] == "Pecovatel" %}
+    <div>
+      <a class="content" id="animal_change" onclick="myfunction('animal-change-{{animal.id}}')">Upravit zvíře</a>
+    </div>
+    <div>
+      <a class="content" id="animal_delete" onclick="delete_animal('{{animal.jmeno}}','animal-delete-{{animal.id}}')">Odebrat zvíře</a>
+    </div>
+  {% endif %}
+  {% if session["user_role"] == "Veterinar" or  session["user_role"] == "Pecovatel"%}
+    <br>
+    <p>Podstoupena vyšetření:</p>
+    {% if kniha_len == 0 %}
+      <p>Zvíře ještě nepodstoupilo žádné vyšetření</p>
+    {% endif %}
+    {% for record in kniha %}
+      <div>
+        <a class="content" id="{{animal.id}}_name" onclick="myfunction('record-show-{{animal.id}}-{{record.id}}')">{{record.id}}: {{record.druh_vysetreni}} ({{record.datum.strftime('%d-%m-%Y')}})</a>
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% if session["user_role"] == "Veterinar" %}
+    <br>
+    <div>
+      <a class="content" id="new_record" onclick="myfunction('record-add-{{animal.id}}')">Přidat záznam do zdravotní knihy zvířete {{animal.jmeno}}</a>
+    </div>
+  {% endif %}
+  {% if session["user_role"] == "Dobrovolnik" and user.overen == True%}
+    <br>
+    <div>
+      <a class="content" id="adopt" onclick="adopt_animal('{{animal.jmeno}}','animal-adopt-{{animal.id}}-{{user.id}}')">Adoptovat zvíře {{animal.jmeno}}</a>
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,135 @@
+<!-- autor: Jakub Kováčik (xkovac58) -->
+<script>
+  ('form').onkeypress = function(e) {
+    var key = e.charCode || e.keyCode || 0;     
+    if (key == 13) {
+      e.preventDefault();
+      document.getElementById("image_button").click(); 
+    }
+  } 
+
+  $(function () {
+
+    $('#animal_change_form').on('submit', function (e) {
+      e.preventDefault();
+      $('#container').hide(400);
+      $.ajax({
+        url: 'http://127.0.0.1:5000/ajax_animal-change-{{animal.id}}',
+        type: 'POST',
+        data: {
+          Name : $('#Name').val(),
+          Breed : $('#Breed').val(),
+          BirthDate : $('#BirthDate').val(),
+          History : $('#History').val(),
+        },
+        
+        success: function(res) {
+          setTimeout(function(){
+          $('#container').html(res);
+          $('#container').show(400);
+          
+          }, 400);
+      }
+      });
+
+    });
+
+  });
+</script>
+
+<script>
+  $(function () {
+
+    $('#animal_change_image').on('submit', function (e) {
+      var image_inserted = 1;
+      if( document.getElementById("img").files.length == 0 ){
+        var formData = "noimage";
+      }
+      else{
+        var form = $('#animal_change_image')[0];
+        var formData = new FormData(form);
+      }
+      e.preventDefault();
+      $('#container').hide(400);
+      $.ajax({
+        url: 'http://127.0.0.1:5000/ajax_animal-change-{{animal.id}}',
+        data: formData,
+        type: 'POST',
+        contentType: false, 
+        processData: false, 
+        
+        success: function(res) {
+          document.getElementById("form_button").click(); 
+      }
+      });
+
+    });
+
+  });
+</script>
+<h1 align="center"><a id="animal" onclick="myfunction('animal-{{animal.id}}')">{{animal.jmeno}}</a></h1>
+<div>
+  <img id="{{animal.id}}_img" src="../static/{{animal.img}}">
+  <br>
+  <p class="content">Plemeno: {{animal.druh}}</p>
+  <p class="content">Historie: {{animal.historie}}</p>
+  <p class="content">Datum narození: {{animal.datum_narozeni.strftime("%d. %b. %Y")}}</p>
+</div>
+  <h1 align="center">Změna popisu zvířete</h1>
+  <form id="animal_change_form" method="POST" enctype="multipart/form-data">
+    <h3 align="center">Změna zvířete {{animal.jmeno}}</h3>
+    <div class="form-group">
+      <label for="Name">Jméno</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Name"
+        name="Name"
+        placeholder="Zadej jméno"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Breed">Plemeno/Druh</label>
+      <select id="Breed" name="Breed">
+        <option value="Pes" {% if animal.druh == "Pes" %} selected {%endif%}>Pes</option>
+        <option value="Kočka" {% if animal.druh == "Kočka" %} selected {%endif%}>Kočka</option>
+    </select>
+    </div>
+    <div class="form-group">
+      <label for="BirthDate">Datum narození</label>
+      <input
+        type="date"
+        class="form-control"
+        id="BirthDate"
+        name="BirthDate"
+        placeholder="Zadej datum narození"
+        max="9999-12-31"
+      />
+    </div>
+    <div class="form-group">
+      <label for="History">Historie</label>
+      <input
+        type="text"
+        class="form-control"
+        id="History"
+        name="History"
+        placeholder="Zadej historii zvířete"
+      />
+    </div>
+    
+    <button id="form_button" type="submit" class="btn btn-primary" style="display: none;" ">Uložit</button>
+    </form>
+
+    <form id="animal_change_image" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="img">Obrázek</label>
+      <input
+        type="file"
+        class="form-control"
+        id="img"
+        name="img"
+        placeholder="Zvolte obrázek zvířete"
+      />
+    </div>
+    <button id="image_button" type="submit" class="btn btn-primary">Uložit</button>
+  </form>

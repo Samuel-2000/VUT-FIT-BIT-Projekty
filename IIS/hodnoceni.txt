@@ -1,0 +1,41 @@
+Text zprávy:
+
+    dokumentace:
+        ER/návrh DB: ok
+        instalace: ok
+    zdrojové kódy:
+        inicializační skript DB: ok
+        architektura/struktura souborů: skoro vše v 1 souboru
+        uložení hesel: ok (hash)
+    funkcionalita:
+
+    administrátor:
+        spravuje uživatele – skoro
+
+            nejde smazat dobrovolník
+
+    pečovatel:
+        spravuje zvířata, vede jejich evidenci - ok
+        vytváří rozvrhy pro venčení - ok
+        ověřuje dobrovolníky - ok
+        schvaluje rezervace zvířat na venčení, eviduje zapůjčení a vrácení – skoro
+
+            není schválení rezervace
+
+    vytváří požadavky na veterináře - ok
+
+    veterinář:
+        vyřizuje požadavky od pečovatele - ok
+        udržuje zdravotní záznamy zvířat - ok
+    dobrovolník:
+        rezervuje zvířata na venčení - ok
+        vidí historii svých venčení - ok
+    neregistrovaný uživatel
+        prochází informace o útulku a zvířatech - ok
+
+    použitelnost:
+        klientská validace formulářů:
+        oznámení o (ne)provedení akce:
+        další:
+            nově registrovaný uživatel má v historii už několik procházek (při pohledu od pečovatele)
+

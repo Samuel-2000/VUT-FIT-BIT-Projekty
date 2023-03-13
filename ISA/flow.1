@@ -1,0 +1,16 @@
+.TH FLOW 1
+.SH NAME
+flow \- transform packets to netflow, and send to collector.
+.SH SYNOPSIS
+.B flow
+.IR file ...
+.SH DESCRIPTION
+.B flow
+input file are packets, sends output to collector.
+.SH OPTIONS
+.B
+[\fB-f \fR\fI file\fR]
+[\fB-c \fR\fI neflow_collector\fR[\fR:port\fR]]
+[\fB-m \fR\fI count\fR]
+[\fB-a \fR\fI active_timer\fR]
+[\fB-f \fR\fI seconds\fR]

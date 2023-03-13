@@ -1,0 +1,3 @@
+Datum: 28.4.2022
+Čas: 23:25
+Způsob odevzdání: kompletní archiv se složkami repo, doc, a install byl zabalen do zipu, a umístěn na server ivs.fit.vutbr.cz do složky /ivs-proj2-2021-22/odevzdane/xkucht11
